@@ -7,21 +7,20 @@
 spring boot support for automatically loading custom yaml file.
 
 ---
-
+ 
 Spring Boot offers three ways to load custom settings.
 
 - spring.config.location, spring.config.name
 - SpringApplicationBuilder
 - EnvironmentPostProcessor
 
+[[Spring Docs : howto-properties-and-configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-properties-and-configuration.html)]
+
 **but** this is cumbersome. when a lot of multi-modules and settings are created, you have to work on them every time.
 
-so i made it. 
+so i made `spring-boot-custom-yaml-importer` 
 
 **so that you can load the settings just by having dependencies.**
-
-[[blog : spring-boot-properties-environment](http://blog.kingbbode.com/posts/spring-boot-properties-environment)]
-
 
 ## Install
 
