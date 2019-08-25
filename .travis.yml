@@ -14,4 +14,4 @@ cache:
 script: "./gradlew clean test"
 
 after_success:
-  - ./gradlew jacocoRootReport coveralls
+  - ./gradlew jacocoTestReport coveralls
