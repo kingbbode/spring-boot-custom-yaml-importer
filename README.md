@@ -40,3 +40,43 @@ dependencies {
 load the yaml file that is matched with `resources/config/custom-*.yml`.
 
 write the settings you need for each of your modules here.
+
+### Single Module
+
+```
+|_src
+|  |_main
+|     |_resources
+|           |_config
+|           |    |_ custom-a.yml
+|           |    |_ custom-b.yml
+|           |    |_ custom-c.yml
+|           |
+|           |_application.yml  
+```
+
+### Multi Module
+
+```
+|_app
+|  |_src
+|     |_main
+|        |_resources
+|              |_config
+|              |   |_custom-a.yml
+|              |
+|              |_application.yml
+|                   
+|_module-b
+|   |_src
+|      |_main
+|         |_resources
+|               |_config
+|                    |_custom-b.yml
+|_module-c
+|   |_src
+|      |_main
+|         |_resources
+|               |_config
+|                    |_custom-c.yml
+```
