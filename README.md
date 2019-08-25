@@ -1,5 +1,7 @@
 # spring-boot-custom-yaml-importer
 
+[![](https://jitpack.io/v/kingbbode/spring-boot-custom-yaml-importer.svg)](https://jitpack.io/#kingbbode/spring-boot-custom-yaml-importer)
+
 spring boot support for automatically loading custom yaml file.
 
 ---
