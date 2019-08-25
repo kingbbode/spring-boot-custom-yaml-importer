@@ -58,6 +58,8 @@ jacocoTestReport {
     }
 }
 
+jacocoTestReport.dependsOn test
+
 coveralls {
-    jacocoReportPath 'build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml'
+    jacocoReportPath 'build/reports/jacoco/test/jacocoTestReport.xml'
 }
