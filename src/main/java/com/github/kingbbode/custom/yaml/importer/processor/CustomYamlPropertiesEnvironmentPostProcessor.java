@@ -44,7 +44,7 @@ public class CustomYamlPropertiesEnvironmentPostProcessor implements Environment
 
         Resource[] resources = new Resource[]{};
         try{
-            resources = resourcePatternResolver.getResources("classpath*:config/custom-*");
+            resources = resourcePatternResolver.getResources("classpath*:config/custom-*.yml");
         }catch(IOException e){
             log.error("{}", e.getMessage(), e);
         }
