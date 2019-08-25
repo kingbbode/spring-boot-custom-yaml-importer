@@ -1,0 +1,18 @@
+test4:
+  test: a
+
+---
+spring:
+  profiles:
+    - beta
+    - stub
+
+test4:
+  test: b
+
+---
+spring:
+  profiles: real
+
+test4:
+  test: d

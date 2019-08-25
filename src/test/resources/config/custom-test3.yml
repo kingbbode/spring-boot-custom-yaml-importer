@@ -1,0 +1,16 @@
+test3:
+  test: a
+
+---
+spring:
+  profiles: beta, stub
+
+test3:
+  test: b
+
+---
+spring:
+  profiles: real
+
+test3:
+  test: d

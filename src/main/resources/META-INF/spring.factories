@@ -1,0 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.github.kingbbode.custom.yaml.importer.processor.CustomYamlPropertiesEnvironmentPostProcessor
