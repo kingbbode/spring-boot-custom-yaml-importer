@@ -16,6 +16,28 @@ Spring Boot offers three ways to load custom settings.
 
 [[Spring Docs : howto-properties-and-configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-properties-and-configuration.html)]
 
+There is also this method using Profile
+
+*[main module]*
+```
+spring:
+  profiles:
+    include:
+      - a
+      - b
+      - c
+```
+*[sub module a]*
+`application-a.yml`
+
+*[sub module b]*
+`application-b.yml`
+
+*[sub module c]*
+`application-c.yml`
+
+[[Spring Docs : boot-features-external-config](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html)]
+
 **but** this is cumbersome. when a lot of multi-modules and settings are created, you have to work on them every time.
 
 so i made `spring-boot-custom-yaml-importer` 
