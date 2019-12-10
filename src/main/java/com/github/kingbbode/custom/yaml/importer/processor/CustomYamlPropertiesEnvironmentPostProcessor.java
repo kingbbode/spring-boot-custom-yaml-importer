@@ -110,7 +110,7 @@ public class CustomYamlPropertiesEnvironmentPostProcessor implements Environment
     private boolean matchProfiles(String profile, PropertySource<?> propertySource) {
         Object property = propertySource.getProperty(SPRING_PROFILES);
         if(property == null) {
-            return ((LinkedHashMap<String, OriginTrackedValue>) propertySource.getSource())
+            return ((Map<String, OriginTrackedValue>) propertySource.getSource())
                     .entrySet()
                     .stream()
                     .filter(entry -> entry.getKey().contains(SPRING_PROFILES))
