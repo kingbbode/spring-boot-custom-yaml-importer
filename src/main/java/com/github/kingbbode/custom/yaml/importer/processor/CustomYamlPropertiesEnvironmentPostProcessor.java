@@ -23,12 +23,14 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Slf4j
 public class CustomYamlPropertiesEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
     private static final int DEFAULT_ORDER = Ordered.LOWEST_PRECEDENCE;
-    private static final String SPRING_PROFILES = "spring.profiles";
+    private static final String OLD_SPRING_PROFILES = "spring.profiles";
+    private static final String SPRING_PROFILES = "spring.config.activate.on-profile";
 
     private final YamlPropertySourceLoader loader = new YamlPropertySourceLoader();
 
@@ -70,9 +72,11 @@ public class CustomYamlPropertiesEnvironmentPostProcessor implements Environment
                         Binder binder = new Binder(
                                 ConfigurationPropertySources.from(propertySource),
                                 new PropertySourcesPlaceholdersResolver(environment));
-                        String[] profiles = binder.bind(SPRING_PROFILES, Bindable.of(String[].class))
-                                .orElse(new String[0]);
-
+                        String[] profiles = Stream.concat(
+                                Arrays.stream(loadProfiles(binder, OLD_SPRING_PROFILES)),
+                                Arrays.stream(loadProfiles(binder, SPRING_PROFILES))
+                            )
+                            .toArray(String[]::new);
                         if (profiles.length == 0) {
                             defaultPropertySource.add(propertySource);
                             return false;
@@ -91,9 +95,15 @@ public class CustomYamlPropertiesEnvironmentPostProcessor implements Environment
         }
     }
 
-    /**
-     * 사용자 입력 순서 보장
-     */
+    private String[] loadProfiles(Binder binder, String profileConfig) {
+        String[] profiles = binder.bind(profileConfig, Bindable.of(String[].class))
+                .orElse(new String[0]);
+        if(OLD_SPRING_PROFILES.equals(profileConfig) && profiles.length > 0) {
+            log.warn("'{}' is deprecated since spring boot 2.4 and later.", OLD_SPRING_PROFILES);
+        }
+        return profiles;
+    }
+
     private List<PropertySource<?>> sortProfilePriority(ConfigurableEnvironment environment, List<PropertySource<?>> propertySourceList) {
         String[] activeProfiles = environment.getActiveProfiles();
 
@@ -106,21 +116,25 @@ public class CustomYamlPropertiesEnvironmentPostProcessor implements Environment
                 .collect(Collectors.toList());
     }
 
-    @SuppressWarnings("unchecked")
     private boolean matchProfiles(String profile, PropertySource<?> propertySource) {
-        Object property = propertySource.getProperty(SPRING_PROFILES);
+        return matchProfiles(profile, propertySource, OLD_SPRING_PROFILES) || matchProfiles(profile, propertySource, SPRING_PROFILES);
+    }
+
+    @SuppressWarnings("unchecked")
+    private boolean matchProfiles(String profile, PropertySource<?> propertySource, String springProfileConfig) {
+        Object property = propertySource.getProperty(springProfileConfig);
         if(property == null) {
             return ((Map<String, OriginTrackedValue>) propertySource.getSource())
-                    .entrySet()
-                    .stream()
-                    .filter(entry -> entry.getKey().contains(SPRING_PROFILES))
-                    .map(trackedValueEntry -> trackedValueEntry.getValue().toString())
-                    .anyMatch(profile::equals);
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().contains(springProfileConfig))
+                .map(trackedValueEntry -> trackedValueEntry.getValue().toString())
+                .anyMatch(profile::equals);
         }
 
         return Arrays.stream(((String) property).split(","))
-                .map(String::trim)
-                .anyMatch(s -> s.equals(profile));
+            .map(String::trim)
+            .anyMatch(s -> s.equals(profile));
     }
 
     @Override

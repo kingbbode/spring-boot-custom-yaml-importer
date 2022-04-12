@@ -52,7 +52,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.kingbbode:spring-boot-custom-yaml-importer:0.1.0'
+    compile 'com.github.kingbbode:spring-boot-custom-yaml-importer:0.3.0'
 }
 ```
 

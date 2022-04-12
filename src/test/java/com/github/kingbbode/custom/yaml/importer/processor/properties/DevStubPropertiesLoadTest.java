@@ -1,23 +1,17 @@
 package com.github.kingbbode.custom.yaml.importer.processor.properties;
 
 
-import com.github.kingbbode.custom.yaml.importer.processor.Test1Properties;
-import com.github.kingbbode.custom.yaml.importer.processor.Test2Properties;
-import com.github.kingbbode.custom.yaml.importer.processor.Test3Properties;
-import com.github.kingbbode.custom.yaml.importer.processor.Test4Properties;
+import com.github.kingbbode.custom.yaml.importer.processor.*;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 @ActiveProfiles({"beta", "stub"})
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class DevStubPropertiesLoadTest {
 
@@ -33,11 +27,27 @@ public class DevStubPropertiesLoadTest {
     @Autowired
     private Test4Properties test4Properties;
 
+    @Autowired
+    private Test5Properties test5Properties;
+
+    @Autowired
+    private Test6Properties test6Properties;
+
+    @Autowired
+    private Test7Properties test7Properties;
+
+    @Autowired
+    private Test8Properties test8Properties;
+
     @Test
     public void  dev_stub_properties() {
         assertEquals("c", test1Properties.getTest());
         assertEquals("b", test2Properties.getTest());
         assertEquals("b", test3Properties.getTest());
         assertEquals("b", test4Properties.getTest());
+        assertEquals("c", test5Properties.getTest());
+        assertEquals("b", test6Properties.getTest());
+        assertEquals("b", test7Properties.getTest());
+        assertEquals("b", test8Properties.getTest());
     }
 }

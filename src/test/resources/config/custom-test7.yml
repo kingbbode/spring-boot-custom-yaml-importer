@@ -1,0 +1,20 @@
+test7:
+  test: a
+
+---
+spring:
+  config:
+    activate:
+      on-profile: beta, stub
+
+test7:
+  test: b
+
+---
+spring:
+  config:
+    activate:
+      on-profile: real
+
+test7:
+  test: d

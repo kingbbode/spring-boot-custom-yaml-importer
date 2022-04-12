@@ -1,0 +1,22 @@
+test8:
+  test: a
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - beta
+        - stub
+
+test8:
+  test: b
+
+---
+spring:
+  config:
+    activate:
+      on-profile: real
+
+test8:
+  test: d

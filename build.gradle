@@ -1,14 +1,15 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.2.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.6.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id 'maven'
+    id 'java-library'
+    id 'maven-publish'
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.8.4'
 }
 
 group 'com.github.kingbbode'
-version = '0.2.0'
+version = '0.3.0'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -24,10 +25,13 @@ repositories {
 }
 
 bootJar { enabled = false }
-jar { enabled = true }
+jar {
+    enabled = true
+    archiveFileName = "${rootProject.name}-${archiveVersion.get()}.jar"
+}
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter'
+    api 'org.springframework.boot:spring-boot-starter'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
@@ -62,4 +66,21 @@ jacocoTestReport.dependsOn test
 
 coveralls {
     jacocoReportPath 'build/reports/jacoco/test/jacocoTestReport.xml'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact "${buildDir}/libs/${rootProject.name}-${version}.jar"
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+        }
+    }
 }

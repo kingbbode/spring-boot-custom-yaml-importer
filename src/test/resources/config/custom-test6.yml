@@ -1,0 +1,20 @@
+test6:
+  test: a
+
+---
+spring:
+  config:
+    activate:
+      on-profile: beta
+
+test6:
+  test: b
+
+---
+spring:
+  config:
+    activate:
+      on-profile: real
+
+test6:
+  test: d

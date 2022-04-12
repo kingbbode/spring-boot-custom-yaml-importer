@@ -1,0 +1,29 @@
+test5:
+  test: a
+
+---
+spring:
+  config:
+    activate:
+      on-profile: beta
+
+test5:
+  test: b
+
+---
+spring:
+  config:
+    activate:
+      on-profile: stub
+
+test5:
+  test: c
+
+---
+spring:
+  config:
+    activate:
+      on-profile: real
+
+test5:
+  test: d
