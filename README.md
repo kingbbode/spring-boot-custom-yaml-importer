@@ -6,6 +6,14 @@
 
 spring boot support for automatically loading custom yaml file.
 
+### Spring Boot Compatibility
+
+|  Version  | Spring Boot Version |
+|:---------:|:-------------------:|
+|   0.3.0   |       2.4.x ~       |
+|   0.2.0   |    2.2.x, 2.3.x     |
+|   0.1.0   |    2.0.x, 2.1.x     |
+
 ---
  
 Spring Boot offers three ways to load custom settings.
